@@ -1,5 +1,8 @@
 # sysmodule-flake
-sysmodule-flake uses [flake-parts](https://github.com/hercules-ci/flake-parts) to further extend the comfort of using one top-level flake.nix file for all system configurations.
+
+sysmodule-flake allows you to write your NixOS, nix-darwin and home-manager configurations and write/import modules in a simple and holistic way without the need to (re-)write a lot of boiler plate code for each system.
+
+The project uses [flake-parts](https://github.com/hercules-ci/flake-parts) to further extend the comfort of using one top-level flake.nix file for all system configurations.
 
 It collects all configurations and modules in the project, found in a pre-defined directory structure (see [Usage](#Usage)). These can be any combination of NixOS configurations, [nix-darwin](https://github.com/LnL7/nix-darwin) configurations and NixOS modules to be imported in the configurations or as [home-manager](https://github.com/nix-community/home-manager) modules. 
 The configuration that applies to the current system is selected and applied automatically during evaluation.
@@ -21,11 +24,13 @@ Add sysmodule-flake to your configuration's flake inputs and define the `sysmodu
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
 
+    # Optional: Add this only if you use home-manager
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    darwin.url = "github:lnl7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
+    # Optional: Add this only if you use nix-darwin
+    nix-darwin.url = "github:lnl7/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     sysmodule-flake.url = "github:applicative-systems/sysmodule-flake";
     sysmodule-flake.inputs.nixpkgs.follows = "nixpkgs";
@@ -40,7 +45,9 @@ Add sysmodule-flake to your configuration's flake inputs and define the `sysmodu
     sysmodules-flake = {
       modulesPath = ./.;
       specialArgs.self = inputs.self;
-      nix-darwin = inputs.darwin;
+
+      # Optional: Add this only if you use nix-darwin
+      inherit nix-darwin;
     };
   };
 }
@@ -48,21 +55,20 @@ Add sysmodule-flake to your configuration's flake inputs and define the `sysmodu
 
 In this example, `modulesPath = ./.` is the top-level directory, but of course it can be any path within the repository. sysmodule-flake expects the following directory structure:
 
-- configs-nixos
-	- machine_00
-		- configuration.nix
-	- machine_01
-		- configuration.nix
+- `configs-nixos/`
+	- `machine_00/`
+		- `configuration.nix`
+	- `machine_01/`
+		- `configuration.nixz 
 	- ...
-- configs-darwin
-	- machine_10
-		- configuration.nix
-	- machine_11
-		- configuration.nix
+- `configs-darwin/`
+	- `machine_10/`
+		- `configuration.nix`
+	- `machine_11/`
+		- `configuration.nix`
 	- ...
-- modules-home-manager
-	- git.nix
-	- tmux.nix
+- `modules-home-manager/`
+	- `git.nix`
+	- `tmux.nix`
 	- ...
 
-Now you can start writing your configs and write/import modules and setup any machine in a simple and holistic way without the need to (re-)write a lot of boiler plate code for each system.
