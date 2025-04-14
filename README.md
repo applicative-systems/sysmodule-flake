@@ -48,7 +48,7 @@ Add sysmodule-flake to your configuration's flake inputs and define the `sysmodu
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-    systems = [ "x86_64-linux", "x86_64-darwin" "aarch64-darwin" ];
+    systems = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
     imports = [
       inputs.sysmodule-flake.flakeModules.default
     ];
@@ -57,7 +57,7 @@ Add sysmodule-flake to your configuration's flake inputs and define the `sysmodu
       specialArgs.self = inputs.self;
 
       # Optional: Add this only if you use nix-darwin
-      inherit nix-darwin;
+      inherit (inputs) nix-darwin;
     };
   };
 }
