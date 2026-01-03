@@ -105,7 +105,7 @@ Contact us:
 
 ## Related
 
-* https://github.com/vic/import-tree is a similar project.
+* [import-tree](https://github.com/vic/import-tree) is a similar project.
 
 ## License
 
