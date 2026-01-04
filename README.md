@@ -103,6 +103,10 @@ Contact us:
   * Report issues on [GitHub](https://github.com/applicative-systems/sysmodule-flake/issues)
   * Contribute via [Pull Requests](https://github.com/applicative-systems/sysmodule-flake/pulls)
 
+## Related
+
+* [import-tree](https://github.com/vic/import-tree) is a similar project.
+
 ## License
 
 [MIT License](./LICENSE)
