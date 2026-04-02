@@ -69,7 +69,7 @@ In this example, `modulesPath = ./.` is the top-level directory, but of course i
 	- `machine_00/`
 		- `configuration.nix`
 	- `machine_01/`
-		- `configuration.nixz
+		- `configuration.nix`
 	- ...
 - `configs-darwin/`
 	- `machine_10/`
