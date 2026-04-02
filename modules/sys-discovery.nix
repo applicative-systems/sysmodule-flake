@@ -10,6 +10,12 @@ let
     nixosModules = "modules-nixos";
   };
 
+  profilesDirs = {
+    darwinProfiles = "profiles-darwin";
+    homeManagerProfiles = "profiles-home-manager";
+    nixosProfiles = "profiles-nixos";
+  };
+
   configsDirs = {
     darwinConfigurations = {
       folder = "configs-darwin";
@@ -43,6 +49,8 @@ let
     builtins.mapAttrs f existingPaths;
 
   modulesAttrs = commonAttrs modulesDirs localLib.modulesFromDir;
+
+  profilesAttrs = commonAttrs profilesDirs localLib.modulesFromDir;
 
   configAttrs =
     let
@@ -79,5 +87,5 @@ in
       default = null;
     };
   };
-  config.flake = configAttrs // modulesAttrs;
+  config.flake = configAttrs // modulesAttrs // profilesAttrs;
 }
